@@ -26,6 +26,10 @@ typedef NS_ENUM(NSInteger, MHHUDSection){
     MHHUDAnimationPosition position;
     
     MHHUDBackgroundStyle backgroundStyle;
+    
+    MHHUD *hud;
+    
+
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,20 +48,22 @@ typedef NS_ENUM(NSInteger, MHHUDSection){
     position = MHHUDAnimationPositionMiddle;
     
     backgroundStyle = MHHUDBackgroundStyleTransparent;
+
 }
 
+
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)buttonClick:(UIButton *)sender {
     
-    MHHUD *hud = [MHHUD initMMHUD];
+    hud = [MHHUD initMMHUD];
     
     [hud setMHHUDAnimationDirection:direction];
     
     [hud setMHHUDAnimationPosition:position];
-    
     
     [hud setMHHUDTitleFont:[UIFont systemFontOfSize:14.0f]];
     
@@ -68,8 +74,34 @@ typedef NS_ENUM(NSInteger, MHHUDSection){
         [hud setMHHUDBackgroundBlur:UIBlurEffectStyleExtraLight alpah:0.2f];
         
     }else{
+        
         [hud setMHHUDBackgroundStyle:backgroundStyle];
     }
+    
+    hud.confirmButtonClickBlock = ^(void){
+        
+        DLog();
+    };
+    
+    hud.cancelButtonClickBlock = ^(void){
+        
+        DLog();
+    };
+    
+    hud.beforeAnimationBlock = ^(void){
+        
+        DLog();
+    };
+    
+    hud.beginAnimationBlock = ^(void){
+        
+        DLog();
+    };
+    
+    hud.endAnimationBlock = ^(void){
+        
+        DLog();
+    };
     
     [hud display];
 }

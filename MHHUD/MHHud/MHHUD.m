@@ -396,11 +396,19 @@ CGFloat const MHHUD_BUTTONS_PADDING_LEFT_AND_RIGHT = 5.0f;
 
 - (void)confirmButtonClick:(UIButton *)sender{
     
+    if (self.confirmButtonClickBlock) {
+       
+        self.confirmButtonClickBlock();
+    }
+    
     [self dismiss];
 }
 
 - (void)cancelButtonClick:(UIButton *)sender{
     
+    self.cancelButtonClickBlock = ^{
+        
+    };
     [self dismiss];
 }
 
@@ -445,7 +453,6 @@ CGFloat const MHHUD_BUTTONS_PADDING_LEFT_AND_RIGHT = 5.0f;
 }
 
 
-
 #pragma mark -
 #pragma mark show and dismiss
 
@@ -457,13 +464,26 @@ CGFloat const MHHUD_BUTTONS_PADDING_LEFT_AND_RIGHT = 5.0f;
     
     contentView_.center = point;
     
+    if (self.beforeAnimationBlock) {
+        
+        self.beforeAnimationBlock();
+    }
+    
     [UIView animateWithDuration:animationTimeInterval delay:delayTimeInterval options:UIViewAnimationOptionOverrideInheritedOptions animations:^{
+        
+        if (self.beginAnimationBlock) {
+            
+            self.beginAnimationBlock();
+        }
         
         contentView_.center = [self initialContentViewCenter];
         
     } completion:^(BOOL finished) {
         
-        
+        if (self.endAnimationBlock) {
+            
+            self.endAnimationBlock();
+        }
     }];
 }
 

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
+#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+
 typedef NS_ENUM(NSInteger, MHHUDBackgroundStyle) {
     
     MHHUDBackgroundStyleTransparent,
@@ -35,12 +38,14 @@ typedef NS_ENUM(NSInteger, MHHUDAnimationPosition) {
 };
 
 
-typedef void (^MHHUDConfirmButtonClick)();
+typedef void (^MHHUDConfirmButtonClick)(void);
 typedef void (^MHHUDCancelButtonClick)();
 
 typedef void (^MHHUDBeforeAnimationBlock)();
 typedef void (^MHHUDBeginAnimationBlock)();
 typedef void (^MHHUDEndAnimationBlock)();
+
+
 
 
 NS_ASSUME_NONNULL_BEGIN
